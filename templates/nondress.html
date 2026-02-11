@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Baby Care Products</title>
+    <style>
+        /* ===== Body ===== */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7f8;
+        }
+
+        /* ===== Page Heading ===== */
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 900;
+            color: #ff6f61;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(255, 111, 97, 0.5);
+        }
+
+        /* ===== Back to Shop Link ===== */
+        .back-link {
+            display: inline-block;
+            margin: 0 auto 40px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(45deg, #ff6f61, #ffcc70);
+            border-radius: 25px;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .back-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        /* ===== Products Container ===== */
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== Product Card ===== */
+        .product-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        /* ===== Product Image ===== */
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ===== Product Name ===== */
+        .product-card h3 {
+            font-size: 1.5rem;
+            margin: 15px 0 10px;
+            color: #333;
+        }
+
+        /* ===== Price & Age ===== */
+        .product-card p {
+            font-size: 1rem;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        /* ===== Buttons ===== */
+        .product-card form button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(45deg, #ff6f61, #ffcc70);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-card form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255,111,97,0.3);
+        }
+
+        /* ===== Responsive ===== */
+        @media screen and (max-width: 992px) {
+            h1 { font-size: 2.5rem; }
+            .product-card img { height: 200px; }
+        }
+
+        @media screen and (max-width: 600px) {
+            h1 { font-size: 2rem; margin-bottom: 20px; }
+            .back-link { font-size: 0.9rem; padding: 8px 16px; margin-bottom: 30px; }
+            .product-card img { height: 180px; }
+            .product-card h3 { font-size: 1.3rem; }
+            .product-card p { font-size: 0.9rem; }
+            .product-card form button { font-size: 0.9rem; padding: 8px 16px; }
+        }
+    </style>
+</head>
+<body>
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Baby Care Products Collection</h1>
+
+<a href="{{ url_for('products') }}" class="back-link">🛍️ Back to Shop</a>
+
+<div class="products-container">
+  {% for product in products %}
+    <div class="product-card">
+      <a href="{{ url_for('product_detail', product_id=product.id) }}">
+        <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
+        <h3>{{ product.name }}</h3>
+      </a>
+      <p><strong>Price:</strong> ₹{{ product.price }}</p>
+      <p><strong>Age Group:</strong> {{ product.age_group }}</p>
+
+      <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
+          <button type="submit">Add to Cart</button>
+      </form>
+      <form action="{{ url_for('buy_now', product_id=product.id) }}" method="POST" style="margin-top: 10px;">
+        <button type="submit">Buy Now</button>
+      </form>
+    </div>
+  {% else %}
+    <p style="text-align:center;">No products found.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}
+</body>
+</html>

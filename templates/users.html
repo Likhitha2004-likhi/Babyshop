@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Registered Users</title>
+</head>
+<body>
+
+{% extends "admin_base.html" %}
+
+{% block title %}Registered Users{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* 🌸 BABY BACKGROUND */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: 
+            linear-gradient(rgba(69, 62, 62, 0.65), rgba(255,255,255,0.65)),
+            url("https://oshiprint.in/image/cache/catalog/poster/new/mqp101-320x320w.jpeg.webp");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .users-wrapper {
+        max-width: 1000px;
+        margin: auto;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px;
+    }
+
+    thead {
+        background: #2c3e50;
+        color: #ffffff;
+    }
+
+    th, td {
+        padding: 12px 14px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    th {
+        font-weight: 600;
+        letter-spacing: 0.3px;
+    }
+
+    tbody tr:nth-child(odd) {
+        background: #f8f9fb;
+    }
+
+    tbody tr:nth-child(even) {
+        background: #bfd7f6;
+    }
+
+    tbody tr:hover {
+        background: #e1e7ef;
+        transition: background 0.3s ease;
+    }
+
+    td {
+        color: #34495e;
+    }
+
+    .no-users {
+        text-align: center;
+        font-size: 16px;
+        color: #7f8c8d;
+        padding: 30px 0;
+    }
+
+    @media (max-width: 600px) {
+        h1 {
+            font-size: 22px;
+        }
+
+        th, td {
+            padding: 10px;
+            font-size: 13px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="users-wrapper">
+
+    <h1>👥 Registered Users</h1>
+
+    {% if users %}
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user['id'] }}</td>
+                        <td>{{ user['name'] }}</td>
+                        <td>{{ user['email'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="no-users">No users found.</p>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+</body>
+</html>

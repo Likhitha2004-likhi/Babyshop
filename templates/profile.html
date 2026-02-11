@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block extra_css %}
+<style>
+/* 🌸 BODY & BACKGROUND */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: 
+        linear-gradient(rgba(255,214,224,0.65), rgba(255,214,224,0.65)),
+        url("https://png.pngtree.com/thumb_back/fh260/background/20240209/pngtree-a-cute-little-baby-boy-sleeping-in-the-bed-newborn-pic-image_15625000.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* 🌸 PROFILE WRAPPER */
+.profile-wrapper {
+    padding: 30px 15px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh; /* full page height */
+    align-items: flex-start; /* start from top, adjust if needed */
+    box-sizing: border-box;
+}
+
+/* 🌸 PROFILE CARD */
+.profile-card {
+    background: rgba(255, 255, 255, 0.95); /* semi-transparent card */
+    max-width: 700px;
+    width: 100%;
+    padding: 30px 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* 🌸 PROFILE HEADER */
+.profile-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.profile-header h1 {
+    font-size: 26px;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.profile-header p {
+    color: #777;
+    font-size: 15px;
+}
+
+/* 🌸 SECTION TITLES */
+.section-title {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: #333;
+    border-bottom: 2px solid #fde4ec;
+    padding-bottom: 6px;
+}
+
+/* 🌸 PURCHASE LIST */
+.purchase-list {
+    margin-top: 15px;
+}
+
+.purchase-item {
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+    color: #555;
+}
+
+.purchase-item:last-child {
+    border-bottom: none;
+}
+
+.empty-text {
+    color: #999;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+/* 🌸 PROFILE ACTIONS */
+.profile-actions {
+    margin-top: 25px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+    padding: 12px 20px;
+    background: #e91e63;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.btn.secondary {
+    background: #34495e;
+}
+
+.btn:hover {
+    background: #d81b60;
+}
+
+.btn.secondary:hover {
+    background: #2c3e50;
+}
+
+/* 🌸 MOBILE */
+@media (max-width: 480px) {
+    .profile-header h1 {
+        font-size: 22px;
+    }
+
+    .section-title {
+        font-size: 18px;
+    }
+
+    .purchase-item {
+        font-size: 14px;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="profile-wrapper">
+    <div class="profile-card">
+
+        <div class="profile-header">
+            <h1>👋 Welcome, {{ user['name'] }}!</h1>
+            <p>Your account overview</p>
+        </div>
+
+        <div class="profile-section">
+            <div class="section-title">🛍️ Your Purchases</div>
+
+            {% if purchases %}
+                <div class="purchase-list">
+                    {% for purchase in purchases %}
+                        <div class="purchase-item">
+                            <strong>{{ purchase['name'] }}</strong><br>
+                            Quantity: {{ purchase['quantity'] }}<br>
+                            Purchased on: {{ purchase['purchase_date'] }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="empty-text">You have no purchases yet.</p>
+            {% endif %}
+        </div>
+
+        <div class="profile-actions">
+            <a href="{{ url_for('home') }}" class="btn secondary">🏠 Go to Home</a>
+            <a href="{{ url_for('logout') }}" class="btn">🚪 Logout</a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

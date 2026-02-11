@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background:#f4f6f8;
+            padding:30px;
+        }
+        .box {
+            max-width:500px;
+            background:#fff;
+            padding:25px;
+            margin:auto;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+        input, select, button {
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+        }
+        button {
+            background:#2ecc71;
+            color:white;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Edit Product</h2>
+
+    <form method="POST">
+        <input type="text" name="name" value="{{ product.name }}" required>
+        <input type="number" name="price" value="{{ product.price }}" required>
+        <input type="text" name="age_group" value="{{ product.age_group }}" required>
+
+        <select name="type" required>
+            <option value="Dress" {% if product.type == 'Dress' %}selected{% endif %}>Dress</option>
+            <option value="Non-Dress" {% if product.type == 'Non-Dress' %}selected{% endif %}>Non-Dress</option>
+        </select>
+
+        <input type="text" name="image" value="{{ product.image }}" required>
+
+        <button type="submit">Update Product</button>
+    </form>
+</div>
+
+</body>
+</html>

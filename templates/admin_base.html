@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Admin Panel{% endblock %}</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            overflow-x: hidden;
+        }
+
+        /* ================= ADMIN NAVBAR ================= */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #2c3e50;
+            z-index: 1000;
+        }
+
+        .admin-nav-container {
+            max-width: 1300px;
+            margin: auto;
+            padding: 14px 20px;
+        }
+
+        .admin-nav-top {
+            display: flex;
+            align-items: center;
+        }
+
+        .admin-brand {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        .admin-menu-toggle {
+            font-size: 26px;
+            cursor: pointer;
+            color: #ffffff;
+            display: none;
+            margin-left: auto;
+        }
+
+        .admin-nav-links {
+            display: flex;
+            gap: 18px;
+            margin-left: auto;
+        }
+
+        .admin-nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 6px;
+            transition: background 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .admin-nav-links a:hover {
+            background: #34495e;
+            color: #f1c40f;
+        }
+
+        /* ================= PAGE CONTENT ================= */
+        .page-content {
+            padding-top: 90px;
+            max-width: 1300px;
+            margin: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        /* ================= MOBILE & TABLET ================= */
+       @media (max-width: 768px) {
+    .admin-menu-toggle {
+        display: block;
+    }
+
+    .admin-nav-top {
+        flex-wrap: wrap;
+    }
+
+    .admin-nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;   /* ✅ CENTER ITEMS */
+        margin-top: 15px;
+        border-top: 1px solid rgba(255,255,255,0.2);
+        padding-top: 10px;
+    }
+
+    nav.active .admin-nav-links {
+        display: flex;
+    }
+
+    .admin-nav-links a {
+        width: 100%;
+        text-align: center;   /* ✅ CENTER TEXT */
+        padding: 12px 0;
+        font-size: 16px;
+    }
+}
+
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<nav id="adminNavbar">
+    <div class="admin-nav-container">
+        <div class="admin-nav-top">
+            <div class="admin-brand">👨‍💼 Admin Panel</div>
+
+            <div class="admin-menu-toggle" onclick="toggleAdminMenu()">☰</div>
+
+            <div class="admin-nav-links">
+                <a href="{{ url_for('admin_dashboard') }}">📊 Dashboard</a>
+                <a href="{{ url_for('add_product') }}">➕ Add Product</a>
+                <a href="{{ url_for('admin_orders') }}">📦 Orders</a>
+                <a href="{{ url_for('list_users') }}">👥 Users</a>
+                <a href="{{ url_for('home') }}">🏠User Home</a>
+                <a href="{{ url_for('admin_logout') }}">🚪 Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="page-content">
+    {% block content %}{% endblock %}
+</div>
+
+<script>
+    function toggleAdminMenu() {
+        document.getElementById("adminNavbar").classList.toggle("active");
+    }
+</script>
+
+</body>
+</html>

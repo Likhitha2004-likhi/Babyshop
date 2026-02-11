@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ product['name'] }}</title>
+  <style>
+    /* ===== Body ===== */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ===== Container ===== */
+    .product-detail {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .product-detail:hover {
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    /* ===== Product Title ===== */
+    .product-detail h1 {
+      text-align: center;
+      font-size: 2.8rem;
+      color: #ff6f61;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(255,111,97,0.3);
+    }
+
+    /* ===== Product Image ===== */
+    .product-detail img {
+      display: block;
+      max-width: 100%;
+      margin: 0 auto 20px;
+      border-radius: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .product-detail img:hover {
+      transform: scale(1.05);
+    }
+
+    /* ===== Product Info ===== */
+    .product-detail p {
+      font-size: 1.1rem;
+      color: #555;
+      margin: 8px 0;
+    }
+
+    .price {
+      color: #e91e63;
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    /* ===== Buttons ===== */
+    .product-detail form button {
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(45deg, #ff6f61, #ffcc70);
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-right: 10px;
+    }
+
+    .product-detail form button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(255,111,97,0.3);
+    }
+
+    /* ===== Recommendations Section ===== */
+    .recommendations {
+      margin-top: 40px;
+    }
+
+    .recommendations h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #ff6f61;
+      text-align: center;
+      text-shadow: 1px 1px 5px rgba(255,111,97,0.2);
+    }
+
+    .recommendations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      justify-items: center;
+    }
+
+    .rec-product {
+      background: #fff;
+      border-radius: 15px;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+    }
+
+    .rec-product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    .rec-product img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .rec-product img:hover {
+      transform: scale(1.05);
+    }
+
+    .rec-product h4 {
+      font-size: 1.1rem;
+      margin: 10px 0 5px;
+      color: #333;
+    }
+
+    .rec-product p {
+      font-size: 0.95rem;
+      color: #555;
+      margin: 3px 0;
+    }
+
+    .rec-product a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .rec-product a:hover h4 {
+      color: #ff6f61;
+    }
+
+    /* ===== Responsive ===== */
+    @media screen and (max-width: 992px) {
+      .product-detail h1 { font-size: 2.5rem; }
+      .product-detail form button { font-size: 0.95rem; padding: 10px 20px; }
+      .recommendations h2 { font-size: 1.8rem; }
+    }
+
+    @media screen and (max-width: 600px) {
+      .product-detail { padding: 20px; }
+      .product-detail h1 { font-size: 2rem; }
+      .product-detail form button { font-size: 0.9rem; padding: 8px 16px; margin-bottom: 10px; width: 100%; }
+      .recommendations-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
+      .recommendations h2 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="margin-bottom: 20px;">
+  <a href="{% if product['type'] | lower == 'dress' %}{{ url_for('dress') }}{% else %}{{ url_for('non_dress') }}{% endif %}"
+     style="text-decoration: none; color: #fff; background: #ff6f61; padding: 10px 18px; border-radius: 8px; font-weight: bold; transition: all 0.3s ease;">
+    ← Back
+  </a>
+</div>
+
+
+
+<div class="product-detail">
+  <h1>{{ product['name'] }}</h1>
+  <img src="{{ url_for('static', filename='images/' + product['image']) }}" alt="{{ product['name'] }}">
+
+  <p class="price"><strong>Price:</strong> ₹{{ product['price'] }}</p>
+  <p><strong>Age Group:</strong> {{ product['age_group'] }}</p>
+  <p><strong>Type:</strong> {{ product['type'] }}</p>
+
+  <!-- Buttons Container -->
+<div class="button-group" style="margin-top: 20px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+  <form method="POST" action="{{ url_for('add_to_cart', product_id=product['id']) }}">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form method="POST" action="{{ url_for('buy_now', product_id=product['id']) }}">
+    <button type="submit">Buy Now</button>
+  </form>
+</div>
+
+
+  <div class="recommendations">
+    <h2>Recommended Products</h2>
+    <div class="recommendations-grid">
+      {% for rec in recommendations %}
+      <div class="rec-product">
+        <a href="{{ url_for('product_detail', product_id=rec.id) }}">
+          <img src="{{ url_for('static', filename='images/' + rec.image) }}" alt="{{ rec.name }}">
+          <h4>{{ rec.name }}</h4>
+          <p>Price: ₹{{ rec.price }}</p>
+          <p>Age Group: {{ rec.age_group }}</p>
+        </a>
+      </div>
+      {% else %}
+        <p>No recommendations available.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BabyShop | Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <style>
+/* ===== Welcome Section ===== */
+.welcome-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 80px 50px;
+    background: linear-gradient(135deg, #f4f7f8, #e0f7fa);
+    min-height: 90vh;
+}
+
+.welcome-text {
+    max-width: 600px;
+    animation: fadeInLeft 1.5s ease forwards;
+}
+
+/* ===== TITLE ===== */
+.welcome-text h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #ff6f61, #ffcc70, #ff6f61);
+    background-clip: text;         /* Standard property */
+    -webkit-background-clip: text; /* Safari/WebKit support */
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 10px rgba(255, 111, 97, 0.5);
+    margin-bottom: 20px;
+    transition: transform 0.5s ease, text-shadow 0.5s ease;
+    cursor: default;
+}
+
+
+/* Hover effect on title */
+.welcome-text h1:hover {
+    transform: scale(1.05) rotate(-2deg);
+    text-shadow: 4px 4px 20px rgba(255, 111, 97, 0.8);
+}
+
+/* ===== TAGLINE ===== */
+.welcome-text p {
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.8;
+    color: #555;
+    margin-top: 10px;
+    border-left: 5px solid #ff6f61;
+    padding-left: 15px;
+    transition: all 0.5s ease;
+}
+
+/* Hover effect on tagline */
+.welcome-text p:hover {
+    color: #ff6f61;
+    font-style: italic;
+    letter-spacing: 0.5px;
+}
+
+/* ===== IMAGE ===== */
+.welcome-image {
+    max-width: 500px;
+    overflow: hidden;
+    border-radius: 20px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.welcome-image img {
+    width: 100%;
+    display: block;
+}
+
+/* Hover effect for image */
+.welcome-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* Fade in animation for text */
+@keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive */
+@media screen and (max-width: 992px) {
+    .welcome-section {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding: 50px 20px;
+    }
+    .welcome-text {
+        max-width: 100%;
+    }
+    .welcome-image {
+        max-width: 80%;
+        margin-bottom: 30px;
+    }
+}
+</style>
+
+</head>
+<body>
+
+{% extends "base.html" %}
+
+{% block title %}Home | BabyShop{% endblock %}
+
+{% block content %}
+
+<!-- ===== Welcome Section ===== -->
+<section class="welcome-section">
+    <div class="welcome-text">
+        <h1>Welcome to BabyShop</h1>
+        <p>“BabyShop – Wrapped in Emotions, Because Every Little Star Deserves the Softest Love, Every Little Miracle, and Forever Memories.”</p>
+    </div>
+    <div class="welcome-image">
+        <img src="https://png.pngtree.com/thumb_back/fh260/background/20240209/pngtree-a-cute-little-baby-boy-sleeping-in-the-bed-newborn-pic-image_15625000.jpg" alt="Cute Baby">
+    </div>
+</section>
+
+
+
+<section class="little-deals-section">
+    <h2>Little Damaka Deals</h2>
+    <div class="sticker-wrapper">
+        <img src="https://img.freepik.com/premium-vector/nursery-stickers-mother-holding-baby-clip-art-collections-set-with-quotes_118629-316.jpg?semt=ais_user_personalization&w=740&q=80" alt="Sticker 1">
+        <img src="https://www.shutterstock.com/image-vector/baby-girl-stickers-collection-vector-260nw-2701448213.jpg" alt="Sticker 2">
+        <img src="https://png.pngtree.com/png-clipart/20201017/ourmid/pngtree-blue-baby-cute-wind-sticker-png-image_2368881.jpg" alt="Sticker 3">
+        <img src="https://stickercb.com/cdn/shop/products/stickers-bebe-a-bord-DORT-garcon-stickercb_2048x.png?v=1637849099" alt="Sticker 4">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpk3nXxLEv-gLkp6Js7g1AQDdqpy6aA2mrVg&s" alt="Sticker 5">
+        <img src="https://m.media-amazon.com/images/I/715jyNq+cjL._AC_UF894,1000_QL80_.jpg" alt="Sticker 6">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTtDBJE_8xOufE5rD2I-BKXV6qTMMhVEeeqA&s" alt="Sticker 7">
+
+        <!-- NEW IMAGES -->
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv7Q-vqPkJ3TqFJvc43Kr5TlZg0-0NTU0Sug&s" alt="Sticker 8">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEABxHLDc689QTP7L88o8gEcFwjnsUMyE8JA&s" alt="Sticker 9">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVRy9Qh6jsqvtKF49pnaQaKAbFKz83bovNkw&s" alt="Sticker 10">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLNjGBxV5z-gAzPUB5w07Ky9WJggQY9HJk0g&s" alt="Sticker 11">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLs6ab6znvkfaZl--mJICbcGNMCPvWRUk97w&s" alt="Sticker 12">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiF6bscY3hDNKsCAm9dWxNh-qIuOgB-_xAgw&s" alt="Sticker 13">
+        <img src="https://png.pngtree.com/png-vector/20240914/ourmid/pngtree-cartoon-baby-for-girls-png-image_12913807.png" alt="Sticker 14">
+        <img src="https://assetscdn1.paytm.com/images/catalog/product/H/HO/HOMOREN-EMPOWEROREN700687A409B05/1563032223966_1..jpg?imwidth=540&impolicy=hq" alt="Sticker 15">
+    
+    
+        <img src="https://png.pngtree.com/png-clipart/20230913/original/pngtree-baby-girl-vector-png-image_11053838.png" alt="Sticker 16">
+        <img src="https://thumbs.dreamstime.com/b/celebrate-special-events-adorable-newborn-girl-stickers-perfect-greeting-cards-gift-wrapping-paper-envelopes-320336217.jpg" alt="Sticker 17">
+        <img src="https://i.fbcd.co/products/resized/resized-750-500/5s-21-baby-girl-with-teddy-bear-2-6ec4b6fd65713a568fc13a7936bf8b514c233dc5aca365a38999d01dd6f6ffe2.jpg" alt="Sticker 18">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkDGZO1vaauopdVvZspTezfWOgAC2g9rElJw&s" alt="Sticker 19">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyy__PC8lcUaJDes8iyMIssK7rAcSM0acE5A&s" alt="Sticker 20">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2WU_Vzg9iVJLN1hSji7o4ZuTp2sUmhr4F1g&s" alt="Sticker 21">
+    
+    </div>
+</section>
+
+
+
+
+
+
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+/* 🌸 BODY & BACKGROUND */
+body {
+    font-family: Arial, sans-serif;
+    background: 
+        linear-gradient(rgba(255,214,224,0.65), rgba(255,214,224,0.65)),
+        url("https://cdn.sanity.io/images/kaeaimuz/production/36c58b650144e5a7a59d60274c8f4c2e39bc808e-2182x1115.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+
+/* 🌸 PAGE TITLE */
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin: 30px 0 20px;
+    font-size: 2rem;
+}
+
+/* 🌸 CART CONTAINER */
+.cart-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto 20px;
+}
+
+/* 🌸 CART ITEM CARD */
+.cart-item {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cart-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 45px rgba(0,0,0,0.2);
+}
+
+/* 🌸 PRODUCT IMAGE */
+.cart-item img {
+    width: 120px; /* fixed for large devices */
+    height: 120px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+/* 🌸 CART DETAILS */
+.cart-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cart-details h3 {
+    margin: 0 0 10px;
+    color: #e91e63;
+    font-size: 1.3rem;
+}
+
+.cart-details p {
+    margin: 4px 0;
+    color: #555;
+    font-size: 1rem;
+}
+
+/* 🌸 BUTTONS */
+.cart-details form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.cart-details button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    flex: 1;
+    transition: 0.3s;
+}
+
+.cart-details button[type="submit"] {
+    background-color: #e74c3c;
+}
+
+.cart-details button + button {
+    background-color: #3498db;
+}
+
+.cart-details button:hover {
+    opacity: 0.85;
+}
+
+/* 🌸 TOTAL PRICE */
+.total-price {
+    text-align: right;
+    color: #2c3e50;
+    font-size: 1.6rem;
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+/* 🌸 BACK BUTTON */
+.back-button {
+    display: inline-block;
+    padding: 12px 25px;
+    margin-bottom: 40px;
+    background: #2c3e50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.back-button:hover {
+    background: #e91e63;
+}
+
+/* 🌸 RESPONSIVE */
+@media (max-width: 768px) {
+    .cart-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .cart-item img {
+        width: 80%;
+        max-width: 200px;
+        height: auto;
+        margin-bottom: 15px;
+    }
+
+    .cart-details form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .cart-details button {
+        width: 100%;
+        flex: unset;
+    }
+
+    .total-price {
+        text-align: center;
+    }
+}
+</style>
+
+<h1>Your Cart</h1>
+
+{% if products %}
+  <div class="cart-container">
+    {% for product in products %}
+      <div class="cart-item">
+        <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
+        <div class="cart-details">
+          <h3>{{ product.name }}</h3>
+          <p>Price: ₹{{ product.price }}</p>
+          <p>Quantity: {{ product.quantity }}</p>
+          <p>Total: ₹{{ product.total }}</p>
+          <form action="{{ url_for('remove_from_cart', product_id=product.id) }}" method="POST">
+            <button type="submit">Remove</button>
+          </form>
+          <form action="{{ url_for('buy_now', product_id=product.id) }}" method="POST">
+            <button type="submit">Buy Now</button>
+         </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="total-price">
+    <h2>Total Price: ₹{{ total_price }}</h2>
+  </div>
+{% else %}
+  <p style="text-align:center; color:#2c3e50;">Your cart is empty.</p>
+{% endif %}
+
+<a href="{{ url_for('home') }}" class="back-button">Continue Shopping</a>
+{% endblock %}

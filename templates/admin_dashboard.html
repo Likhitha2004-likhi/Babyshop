@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+{% extends "admin_base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background:
+            linear-gradient(rgba(255,214,224,0.65), rgba(255,214,224,0.65)),
+            url("https://cdn.sanity.io/images/kaeaimuz/production/36c58b650144e5a7a59d60274c8f4c2e39bc808e-2182x1115.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    h1, p {
+        text-align: center;
+        color: #2c3e50;
+    }
+
+    .stats-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+        gap: 20px;
+        margin: 30px 0;
+    }
+
+    .card {
+        background: #fff;
+        padding: 20px;
+        border-radius: 14px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        text-align: center;
+    }
+
+    .card h1 {
+        color: #e91e63;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 22px;
+        margin-top: 40px;
+    }
+
+    .product-card {
+        background: #fff;
+        padding: 15px;
+        border-radius: 14px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        text-align: center;
+    }
+
+    .product-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .delete-btn {
+        background: #e74c3c;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 8px;
+        width: 100%;
+        margin-top: 8px;
+        cursor: pointer;
+    }
+
+    .edit-btn {
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 8px;
+        width: 100%;
+        margin-top: 8px;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<h1>Welcome Admin 👋</h1>
+<p>Admin can manage all baby products 💼</p>
+
+<section class="stats-section">
+    <div class="card">
+        <h2>📦 Products</h2>
+        <h1>{{ total_products }}</h1>
+    </div>
+    <div class="card">
+        <h2>👥 Users</h2>
+        <h1>{{ total_users }}</h1>
+    </div>
+    <div class="card">
+        <h2>🛒 Orders</h2>
+        <h1>{{ total_orders }}</h1>
+    </div>
+    <div class="card">
+        <h2>💰 Revenue</h2>
+        <h1>₹{{ total_revenue }}</h1>
+    </div>
+</section>
+
+<p style="text-align:center; color:#555;">Filter products by category 👕👗</p>
+
+<div style="text-align:center; margin: 20px 0;">
+    <select id="productFilter" onchange="filterProducts()"
+            style="padding:10px 14px; border-radius:8px;">
+        <option value="all">All Products</option>
+        <option value="dress">Dress</option>
+        <option value="non-dress">Non Dress</option>
+    </select>
+</div>
+
+<section class="product-grid">
+    {% for product in products %}
+    <div class="product-card"
+         data-type="{{ product.type | lower | replace(' ', '-') }}">
+        
+        <img src="{{ url_for('static', filename='images/' + product.image) }}">
+        <h3>{{ product.name }}</h3>
+        <p>₹{{ product.price }}</p>
+        <p>{{ product.type }}</p>
+
+        <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST">
+            <button class="delete-btn"
+                    onclick="return confirm('Delete this product?')">
+                Remove
+            </button>
+        </form>
+
+        <a href="{{ url_for('edit_product', product_id=product.id) }}">
+            <button class="edit-btn">Edit</button>
+        </a>
+    </div>
+    {% endfor %}
+</section>
+<script>
+function filterProducts() {
+    const filter = document.getElementById("productFilter").value;
+    const products = document.querySelectorAll(".product-card");
+
+    products.forEach(card => {
+        const type = card.dataset.type;
+        card.style.display = (filter === "all" || type === filter)
+            ? "block"
+            : "none";
+    });
+}
+</script>
+{% endblock %}
+
+
+
+</body>
+</html>

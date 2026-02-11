@@ -1,0 +1,75 @@
+/* ===== Little Damaka Deals Section ===== */
+.little-deals-section {
+    padding: 80px 50px;
+    background: linear-gradient(135deg, #fff9f2, #ffe6e0);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.little-deals-section h2 {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #ff6f61, #ffcc70, #ff6f61);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 60px;
+    animation: shine 2s infinite linear;
+}
+
+/* Shining sparkle animation for title */
+@keyframes shine {
+    0% { text-shadow: 0 0 5px #fff, 0 0 10px #ffcc70; }
+    50% { text-shadow: 0 0 15px #fff, 0 0 30px #ff6f61; }
+    100% { text-shadow: 0 0 5px #fff, 0 0 10px #ffcc70; }
+}
+
+/* Sticker wrapper in collage style */
+.sticker-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    perspective: 800px;
+}
+
+/* Sticker style */
+.sticker-wrapper img {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    border-radius: 20px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    animation: floatSticker 4s ease-in-out infinite;
+}
+
+/* Random rotation + delay for each sticker for collage effect */
+.sticker-wrapper img:nth-child(odd) { transform: rotate(-5deg); animation-delay: 0s; }
+.sticker-wrapper img:nth-child(even) { transform: rotate(5deg); animation-delay: 0.5s; }
+
+/* Hover pop effect */
+.sticker-wrapper img:hover {
+    transform: scale(1.2) rotate(0deg);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+/* Floating animation keyframes */
+@keyframes floatSticker {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Responsive */
+@media screen and (max-width: 992px) {
+    .little-deals-section h2 { font-size: 2.5rem; }
+    .sticker-wrapper img { width: 120px; height: 120px; }
+}
+
+@media screen and (max-width: 600px) {
+    .little-deals-section h2 { font-size: 2rem; }
+    .sticker-wrapper img { width: 100px; height: 100px; }
+}

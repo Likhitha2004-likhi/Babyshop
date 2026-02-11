@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+{% extends "admin_base.html" %}
+
+{% block title %}Add Product{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* 🍼 BABY BACKGROUND WITH TRANSPARENCY */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background:
+            linear-gradient(rgba(255, 214, 224, 0.65), rgba(255, 214, 224, 0.65)),
+            url("https://media.istockphoto.com/id/1350291172/photo/we-are-identical.jpg?s=612x612&w=0&k=20&c=nTv5baPsRVfCntzU1Bo4tbha0YOAam4E82oIEgC9DtU=");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .add-product-wrapper {
+        max-width: 650px;
+        margin: auto;
+        background: #ffffff;
+        padding: 30px 25px;
+        border-radius: 14px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 15px;
+        text-decoration: none;
+        color: #2c3e50;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+        color: #f1c40f;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        color: #2c3e50;
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .form-group {
+        padding: 14px;
+        border-radius: 10px;
+        transition: background 0.3s ease;
+    }
+
+    .form-group:nth-child(odd) {
+        background: #f8f9fb;
+    }
+
+    .form-group:nth-child(even) {
+        background: #eef2f7;
+    }
+
+    .form-group:hover {
+        background: #e8edf4;
+    }
+
+    label {
+        font-weight: 600;
+        color: #34495e;
+        font-size: 14px;
+    }
+
+    input,
+    select {
+        width: 100%;
+        padding: 10px 12px;
+        margin-top: 6px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        transition: border 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus,
+    select:focus {
+        outline: none;
+        border-color: #2c3e50;
+        box-shadow: 0 0 0 2px rgba(44,62,80,0.15);
+    }
+
+    .submit-btn {
+        margin-top: 10px;
+        padding: 12px;
+        background: #2c3e50;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .submit-btn:hover {
+        background: #1f2d3a;
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 480px) {
+        .add-product-wrapper {
+            padding: 22px 18px;
+        }
+
+        h1 {
+            font-size: 22px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="add-product-wrapper">
+
+    <a href="{{ url_for('admin_dashboard') }}" class="back-link">⬅ Back to Dashboard</a>
+
+    <h1>➕ Add New Product</h1>
+
+    <form action="/admin/add-product" method="POST">
+
+        <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Price (₹)</label>
+            <input type="number" name="price" required>
+        </div>
+
+        <div class="form-group">
+            <label>Age Group</label>
+            <input type="text" name="age_group" placeholder="e.g. 1 month - 6 years" required>
+        </div>
+
+        <div class="form-group">
+            <label>Type</label>
+            <select name="type" required>
+                <option value="Dress">Dress</option>
+                <option value="Non-Dress">Non-Dress</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Image Name</label>
+            <input type="text" name="image" placeholder="e.g. dress1.jpg" required>
+        </div>
+
+        <button type="submit" class="submit-btn">Add Product</button>
+
+    </form>
+</div>
+{% endblock %}
+
+</body>
+</html>

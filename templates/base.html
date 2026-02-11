@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BabyShop{% endblock %}</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            overflow-x: hidden;
+        }
+
+        /* ================= NAVBAR ================= */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #9bcdea;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 14px 20px;
+        }
+
+        .nav-top {
+            display: flex;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .menu-toggle {
+            font-size: 28px;
+            cursor: pointer;
+            display: none;
+            margin-left: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+            margin-left: auto; /* PUSH LINKS TO RIGHT (DESKTOP) */
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        /* BABY THEME HOVER */
+        .nav-links a:hover {
+            background: #e1ccd3;
+            color: #f8056e;
+        }
+
+        /* ================= PAGE CONTENT ================= */
+        .page-content {
+            padding-top: 110px;
+            max-width: 1200px;
+            margin: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        /* ================= MOBILE & TABLET ================= */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-top {
+                flex-wrap: wrap;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;   /* CENTER ITEMS */
+                margin-top: 15px;
+                border-top: 1px solid #eee;
+                padding-top: 10px;
+            }
+
+            nav.active .nav-links {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                text-align: center;
+                font-size: 16px;
+                padding: 12px 0;
+            }
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<nav id="navbar">
+    <div class="nav-container">
+        <div class="nav-top">
+            <div class="brand">🍼 BabyShop</div>
+
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+            <div class="nav-links">
+    <a href="{{ url_for('home') }}">🏠 Home</a>
+    <a href="{{ url_for('products') }}">🛍️ Shop</a>
+    <a href="{{ url_for('cart') }}">🛒 Cart</a>
+    <a href="{{ url_for('admin_login') }}">🛠️ Admin</a>
+
+    {% if session.get('user_id') %}
+        <a href="{{ url_for('profile') }}">👤 {{ session.get('user_name') }}</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">🔐 Login</a>
+        <a href="{{ url_for('register') }}">📝 Register</a>
+    {% endif %}
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div class="page-content">
+    {% block content %}{% endblock %}
+</div>
+
+<script>
+    function toggleMenu() {
+        document.getElementById("navbar").classList.toggle("active");
+    }
+</script>
+
+</body>
+</html>

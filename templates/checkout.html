@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+</head>
+<body>
+    {% extends "base.html" %}
+
+    {% block content %}
+    <h1>Checkout</h1>
+    <p>Product: {{ product.name }}</p>
+    <p>Price: ₹{{ product.price }}</p>
+
+    <form method="POST">
+        <button type="submit">Confirm Purchase</button>
+    </form>
+
+    <a href="{{ url_for('cart') }}">Back to Cart</a>
+{% endblock %}
+
+
+</body>
+</html>
